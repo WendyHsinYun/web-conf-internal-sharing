@@ -33,10 +33,10 @@ transition: slide-left
 
 # 收穫
 
-* 從略有耳聞到實際感受 (ex: RxJS 狀態管理、測試、雲端部署、Vue Vapor Mode...)
-* 了解他人在工作現場遇到的實務問題、他們如何思考與解決 (ex: 勞保局 e 化系統、TonyQ 專案管理實務)
-* 「做簡報」跟「公開演講」原來可以這麼精彩 (ex: PJ、沅霖、Mosky)
-* 到現場參與的可貴: 跟同事交流、促成討論，形成共有基底
+* 從略有耳聞到實際感受 (ex: RxJS 狀態管理、Zeabur 雲端部署、Vue Vapor Mode...)
+* 了解他人在工作現場遇到的實務問題、如何思考與解決 (ex: 勞保局 e 化系統、TonyQ 專案管理實務)
+* 「做簡報」跟「公開演講」原來可以這麼精彩 (ex: PJ、Mosky、沅霖、AntFu...)
+* 現場參與的可貴: 跟同事交流、促成討論，形成共有基底
 
 ---
 class: text-center text-center flex flex-col justify-center
@@ -50,9 +50,10 @@ transition: slide-left
 transition: slide-left
 ---
 
-# 「單元測試的藝術」第 3 版
+# 「單元測試的藝術」第 3 版（第1章）
+第1版 .NET, 第2版C#
 
-<div class="w-40% h-auto mx-auto" style="border-radius: 16px; margin-top:5%">
+<div class="w-40% h-auto mx-auto" style="border-radius: 16px; margin-top:0%">
   <img 
     src="/unit-testing.png" 
     class="w-full object-cover" 
@@ -65,13 +66,17 @@ transition: slide-left
 
 # 什麼是手動測試
 
-人工測試
+<br>
+人工測試情境：
 
 Ｂ有更動時，通常會需要也回去測試Ａ <br>
-當加了Ｃ功能之後，可能要回來測試 Ａ，Ｂ
+當加了Ｃ功能之後，可能要回來測試 Ａ，Ｂ<br>
+通常只能測到目前正在修改的功能，無法確定是否有打破原本正常的其他功能
 
+<v-click>
 <br>
 如果用程式碼？
+</v-click>
 
 ---
 transition: slide-left
@@ -88,6 +93,34 @@ transition: slide-left
 - crash down 的時候，可以比較快找到哪一塊發生問題，更快 debug
 - 有助於**提升資安**，因為 code 夠乾淨，漏洞會很好抓
 - 自動化 CICD 需要測試
+
+<!--
+為何有助於資安：
+
+1. 防止未經處理的輸入輸出
+
+單元測試可驗證輸入和輸出是否符合安全要求：
+
+    測試輸入驗證
+    確保所有輸入都經過檢查和清理（防止 SQL 注入、XSS 等）。
+        測試範例：輸入惡意腳本 <script>alert(1)</script>，確認輸入被攔截或過濾。
+    測試輸出編碼
+    確保輸出到前端的數據正確編碼，防止 XSS 攻擊。
+
+2. 模擬邊界條件與異常情境
+
+單元測試可驗證在極端或異常情境下的系統反應：
+
+    測試過長的輸入或非預期類型的數據（例如，數字欄位中輸入字串）。
+    模擬數據溢出、空指標或未處理的異常，確保程式不暴露敏感信息。
+
+3. 加強認證與授權檢查
+
+透過單元測試檢查認證與授權邏輯是否正確：
+
+    測試授權檢查是否涵蓋所有功能，防止未授權用戶執行敏感操作。
+    測試是否正確處理會話管理（例如，過期 Token 是否無法使用）。
+-->
 
 ---
 transition: slide-left
@@ -137,6 +170,11 @@ function calculate(x, y) { // 入口點 (entry point)
 ```
 </v-click>
 
+<v-click>
+<br> 
+可能牽涉不同 functions, modules, components, 不僅是一個 function 而已。
+</v-click>
+
 ---
 transition: slide-left
 ---
@@ -144,17 +182,15 @@ transition: slide-left
 # Entry Point & Exit Point
 
 <br>
-每一個單元都會有一個從「外部」（透過 production code 或 test）觸發的 entry point
+每一個單元都會有一個從「外部」（透過 production code 或 test）觸發的 entry point，
 
-一至多個「有用的」 exit point
+一至多個「有用的」 exit point。
 
 ---
 transition: slide-left
 ---
 
 # Exit Point 的類型分三種
-
-
 
 <div style="display: flex; width: 100%; height: auto;">
 <!-- 左邊區域 -->
@@ -304,10 +340,10 @@ Test Code
 
 ```javascript
 import { vi } from 'vitest';
-import { routerPushByKey } from 'path-to-your-router-module';
-import { handleAddProductClick } from './path-to-your-function';
+import { routerPushByKey } from 'router-module';
+import { handleAddProductClick } from './composables.js';
 
-vi.mock('path-to-your-router-module', () => ({
+vi.mock('router-module', () => ({
   routerPushByKey: vi.fn(),
 }));
 
@@ -374,7 +410,7 @@ transition: slide-left
 
 <v-click>
 <div style="margin-left: 20px; color: gray;">
-好的單元測試應該要可以很快完成。如果不行，代表它可能有依賴到外部系統，且會使開發者更少跑測試，製造 bugs 未爆彈。
+好的單元測試應該要可以很快跑起來。如果不行，代表它可能有依賴到外部系統，且會使開發者更少跑測試，製造 bugs 未爆彈。
 </div>
 </v-click>
 
@@ -397,7 +433,7 @@ transition: slide-left
 
 <v-click>
 <div style="margin-left: 20px; color: gray;">
-如果寫測試變得很困難，代表你可能關注在「重要的大事情」，那就會變成整合測試，但是整合測試是不夠的，單元測試是用很多很小很簡單的片段，去確保邏輯的正確性。錯誤常發生在這些看似不重要的細節裡。
+如果寫測試變得很困難，代表你可能關注在「重要的大事情」，那就會變成整合測試，但整合測試是不夠的，單元測試是用很多很小而簡單的片段，去確保邏輯的正確性。錯誤常發生在這些看似不重要的細節裡。
 </div>
 </v-click>
 
@@ -454,7 +490,7 @@ transition: slide-left
 
 # TDD 方法的單元測試
 
-寫測試來證明某一段扣還不存在（許願） → 跑測試，測試失敗 → 撰寫最小單位的扣 → 跑測試，測試通過 → 重構測試或是扣 → 跑測試，測試通過
+寫測試來證明某一段 code 還不存在（許願） → 跑測試，測試失敗 → 撰寫最小單位的 code → 跑測試，測試通過 → 重構測試或是 code → 跑測試，測試通過
 
 <div class="w-40% h-auto mx-auto overflow-hidden" style="border-radius: 16px; margin-top:0%">
   <img 
@@ -489,9 +525,11 @@ transition: slide-left
 transition: slide-left
 ---
 
-# 我自己的困難
+# 困難點
 
-還不夠熟悉，嘗試寫的階段。難以估算進工時。
+ref: <a href="https://teddy-chen-tw.blogspot.com/2013/01/blog-post_16.html" target="_blank">
+搞笑談軟工：需求變來變去的情況下需要寫單元測試嗎？
+</a>
 
 <div class="w-40% h-auto mx-auto overflow-hidden" style="border-radius: 16px; margin-top:0%">
   <img 
@@ -505,42 +543,7 @@ transition: slide-left
 transition: slide-left
 ---
 
----
-transition: slide-left
----
+# 2025 新年新期待
 
----
-transition: slide-left
----
-
-# 寫測試，很浪費時間？
-
----
-transition: slide-left
----
-
-# 寫測試，很浪費時間？
-
----
-transition: slide-left
----
-
-# 寫測試，很浪費時間？
-
----
-transition: slide-left
----
-
-# 寫測試，很浪費時間？
-
----
-transition: slide-left
----
-
-# 寫測試，很浪費時間？
-
----
-transition: slide-left
----
-
-# 寫測試，很浪費時間？
+- 深入學習測試方法
+- 實踐 TDD 測試驅動開發
