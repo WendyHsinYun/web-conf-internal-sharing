@@ -50,7 +50,7 @@ transition: slide-left
 transition: slide-left
 ---
 
-# 想趁這個機會來聊聊單元測試
+# 「單元測試的藝術」第 3 版
 
 <div class="w-40% h-auto mx-auto" style="border-radius: 16px; margin-top:5%">
   <img 
