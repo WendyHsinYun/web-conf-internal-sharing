@@ -545,5 +545,5 @@ transition: slide-left
 
 # 2025 新年新期待
 
-- 深入學習測試方法
-- 實踐 TDD 測試驅動開發
+- 持續學習
+- TDD ?
