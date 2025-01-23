@@ -19,7 +19,7 @@ transition: slide-left
 
 # 參加了兩天的 WebConf...
 
-<div class="w-65% h-auto mx-auto overflow-hidden" style="border-radius: 16px; margin-top:5%">
+<div class="w-65% h-auto mr-auto overflow-hidden" style="border-radius: 16px; margin-top:5%">
   <img 
     src="/webconf.png" 
     class="w-full object-cover" 
@@ -37,6 +37,14 @@ transition: slide-left
 * 了解他人在工作現場遇到的實務問題、如何思考與解決 (ex: 勞保局 e 化系統、TonyQ 專案管理實務)
 * 「做簡報」跟「公開演講」原來可以這麼精彩 (ex: PJ、Mosky、沅霖、AntFu...)
 * 現場參與的可貴: 跟同事交流、促成討論，形成共有基底
+
+<div class="w-45% h-auto ml-auto overflow-hidden" style="border-radius: 16px; margin-top:5%">
+  <img 
+    src="/summer.png" 
+    class="w-full object-cover" 
+    style="margin-top: -10%"
+  />
+</div>
 
 ---
 class: text-center text-center flex flex-col justify-center
